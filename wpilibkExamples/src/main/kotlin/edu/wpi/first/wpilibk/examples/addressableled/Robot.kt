@@ -14,8 +14,14 @@ import edu.wpi.first.units.Units.Meters
 import edu.wpi.first.units.Units.MetersPerSecond
 
 object Robot : TimedRobot() {
-    private val m_led: AddressableLED
-    private val m_ledBuffer: AddressableLEDBuffer
+    // PWM port 9
+    // Must be a PWM header, not MXP or DIO
+    private val m_led: AddressableLED = AddressableLED(9)
+    
+    // Reuse buffer
+    // Default to a length of 60, start empty output
+    // Length is expensive to set, so only set it once, then just update data
+    private val m_ledBuffer: AddressableLEDBuffer = AddressableLEDBuffer(60)
 
     // Create an LED pattern that will display a rainbow across
     // all hues at maximum saturation and half brightness
@@ -31,14 +37,6 @@ object Robot : TimedRobot() {
 
     /** Called once at the beginning of the robot program. */
     init {
-        // PWM port 9
-        // Must be a PWM header, not MXP or DIO
-        m_led = AddressableLED(9)
-
-        // Reuse buffer
-        // Default to a length of 60, start empty output
-        // Length is expensive to set, so only set it once, then just update data
-        m_ledBuffer = AddressableLEDBuffer(60)
         m_led.setLength(m_ledBuffer.length)
 
         // Set the data
