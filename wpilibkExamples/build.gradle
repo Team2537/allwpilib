@@ -82,6 +82,7 @@ tasks.register('buildDesktopKotlin') {
     it.dependsOn tasks.withType(JavaCompile)
 }
 
+// Intentionally not publishing example artifacts rn
 // apply from: 'publish.gradle'
 
 ext {
